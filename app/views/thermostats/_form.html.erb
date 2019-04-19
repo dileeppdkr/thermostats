@@ -1,0 +1,27 @@
+<%= form_with(model: thermostat, local: true) do |form| %>
+  <% if thermostat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(thermostat.errors.count, "error") %> prohibited this thermostat from being saved:</h2>
+
+      <ul>
+      <% thermostat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :household_token %>
+    <%= form.text_field :household_token %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

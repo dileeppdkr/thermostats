@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Thermostats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Household token</th>
+      <th>Location</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @thermostats.each do |thermostat| %>
+      <tr>
+        <td><%= thermostat.household_token %></td>
+        <td><%= thermostat.location %></td>
+        <td><%= link_to 'Show', thermostat %></td>
+        <td><%= link_to 'Edit', edit_thermostat_path(thermostat) %></td>
+        <td><%= link_to 'Destroy', thermostat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Thermostat', new_thermostat_path %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Household token:</strong>
+  <%= @thermostat.household_token %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @thermostat.location %>
+</p>
+
+<%= link_to 'Edit', edit_thermostat_path(@thermostat) %> |
+<%= link_to 'Back', thermostats_path %>

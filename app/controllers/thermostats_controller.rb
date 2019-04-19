@@ -1,0 +1,3 @@
+class ThermostatsController < ApplicationController
+  
+end

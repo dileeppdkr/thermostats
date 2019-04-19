@@ -1,0 +1,42 @@
+<%= form_with(model: reading, local: true) do |form| %>
+  <% if reading.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reading.errors.count, "error") %> prohibited this reading from being saved:</h2>
+
+      <ul>
+      <% reading.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :thermostat_id_id %>
+    <%= form.text_field :thermostat_id_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :temperature %>
+    <%= form.text_field :temperature %>
+  </div>
+
+  <div class="field">
+    <%= form.label :humidity %>
+    <%= form.text_field :humidity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :battery_charge %>
+    <%= form.number_field :battery_charge %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sequence_number %>
+    <%= form.number_field :sequence_number %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Thermostat:</strong>
+  <%= @reading.thermostat_id %>
+</p>
+
+<p>
+  <strong>Temperature:</strong>
+  <%= @reading.temperature %>
+</p>
+
+<p>
+  <strong>Humidity:</strong>
+  <%= @reading.humidity %>
+</p>
+
+<p>
+  <strong>Battery charge:</strong>
+  <%= @reading.battery_charge %>
+</p>
+
+<p>
+  <strong>Sequence number:</strong>
+  <%= @reading.sequence_number %>
+</p>
+
+<%= link_to 'Edit', edit_reading_path(@reading) %> |
+<%= link_to 'Back', readings_path %>
