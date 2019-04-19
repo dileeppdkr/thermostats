@@ -22,12 +22,14 @@ class ReadingsController < ApplicationController
 
  #creating readings for a particular thermostat
  def create
-    reading_id = Reading.generate_id
+  puts '-=-=-=-=-=12'
+    reading_id = Reading.next_sequence_id
     # params.delete :action
     # params.delete :controller
+    puts '-=-=-=-=-=12'
     params.merge!("thermostat_id" => @thermostat.id)
     $redis.set(reading_id, params)
-    CreateReadingWorker.perform_async(params, reading_id)
+    ::BackgroundWorker::CreateReading.perform(params, reading_id)
     render status: 200, :json=>{:reading_id => reading_id} and return
  end
 
@@ -47,13 +49,20 @@ class ReadingsController < ApplicationController
 
   def get_thermostat
     @thermostat = Thermostat.where(household_token: params[:household_token]).first
+    puts @thermostat.inspect
+    puts '-=-=-=-=-=-'
     render status: 400, :json=>{:status_code => 4001, :message => I18n.t('invalid_token')} and return if !@thermostat
+    puts '-=-=-=-=-=-=-=-=-=-2'
   end
 
   def validate_params
     @reading = Reading.new(check_params)
+    @reading.thermostat = @thermostat
+    puts '-=-=-=-=-=-=-=-=3'
     if !@reading.valid?
+      puts '-=-=-=-=-=-=-=-=4'
      render json: { "errors" => @reading.errors } and return
+     puts '-=-=-=-=-=-=-=-=5'
     end
   end
 

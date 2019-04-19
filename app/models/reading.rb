@@ -7,8 +7,8 @@ class Reading < ApplicationRecord
   after_create :clear_cache 
 
   #generates unique readings_id_seq
-  def self.generate_id 
-    Reading.connection.select_value("Select nextval('readings_id_seq')")
+  def self.next_sequence_id 
+    Reading.last.id+1
   end
  
   #clears cache data once reading created by sidekiq
