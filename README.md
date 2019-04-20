@@ -30,16 +30,18 @@ Things you may want to cover:
     9  rvm use 2.0.0 --default
     10  ruby -v
 
-  Installing Rails:
-	11  gem install rails ~> 5.2.3
+    Installing Rails:
+
+		11  gem install rails ~> 5.2.3
 
 ## Usage:
 	git checkout https://github.com/dileeppdkr/thermostats.git
 	cd thermostats
 	bundle install
 	rails s
- API's:
-	#Create Thermostats (Post thermostats)
+#API's:
+##Create Thermostats (Post thermostats)
+
 	curl -X POST \
 		http://localhost:3000/thermostats \
 		-H 'Content-Type: application/x-www-form-urlencoded' \
@@ -56,7 +58,8 @@ Things you may want to cover:
 	  }
 	}
 
-	#Create Readings for a thermostat (Post reading)
+##Create Readings for a thermostat (Post reading)
+
 	curl -X POST \
 		http://localhost:3000/readings \
 		-H 'Content-Type: application/x-www-form-urlencoded' \
@@ -69,7 +72,8 @@ Things you may want to cover:
 	  "sequence_id": 29
 	}
 
-	#GET Reading 
+##GET Reading 
+
 	curl -X GET \
 	'http://localhost:3000/readings/26?household_token=6306a49e-d604-4860-8a0a-3188671e7a26' \
 	-H 'Postman-Token: 56f2f698-23c2-4c11-b895-fba65622f4d1' \
@@ -84,7 +88,8 @@ Things you may want to cover:
 	  "battery_charge": 1453
 	}
 
-	#GET Stats
+##GET Stats
+
 	curl -X GET \
 	'http://localhost:3000/readings?household_token=aaad3985-9a70-4959-85b8-eb3700cf1b1a' \
 	-H 'Postman-Token: e58494d2-0b44-4caf-95a1-5b2e6f77550a' \
