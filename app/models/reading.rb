@@ -16,4 +16,14 @@ class Reading < ApplicationRecord
     $redis.del self.id
   end
 
+  def reading_hash
+    return {
+    "id": self.id,
+    "thermostat_id": self.thermostat_id,
+    "temperature": self.temperature,
+    "humidity": self.humidity,
+    "battery_charge": self.battery_charge
+    }
+  end
+
 end

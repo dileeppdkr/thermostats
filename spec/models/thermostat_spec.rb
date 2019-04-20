@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Thermostat, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
 
   it "is valid with all attributes" do
    expect(build(:thermostat)).to be_valid

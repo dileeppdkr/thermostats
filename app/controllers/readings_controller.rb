@@ -9,6 +9,7 @@ class ReadingsController < ApplicationController
     result = []
     db_data = get_thermostats_reading_aggregation
     redis_data = get_redis_data
+    render status: 400, :json=>{:error => I18n.t('no_data_household')} and return if db_data.blank? && redis_data.blank?
     if redis_data.empty?
      result = db_data
     elsif db_data.empty?
@@ -22,15 +23,11 @@ class ReadingsController < ApplicationController
 
  #creating readings for a particular thermostat
  def create
-  puts '-=-=-=-=-=12'
     reading_id = Reading.next_sequence_id
-    # params.delete :action
-    # params.delete :controller
-    puts '-=-=-=-=-=12'
     params.merge!("thermostat_id" => @thermostat.id)
     $redis.set(reading_id, params)
     ::BackgroundWorker::CreateReading.perform(params, reading_id)
-    render status: 200, :json=>{:reading_id => reading_id} and return
+    render status: 200, :json=>{:sequence_id => reading_id} and return
  end
 
  #returns thermostat data for a particular reading
@@ -38,7 +35,7 @@ class ReadingsController < ApplicationController
     reading = $redis.get(params[:id]) || Reading.find_by_id(params[:id])
     puts reading.inspect
     render status: 400, :json=>{ info: I18n.t('no_data')} and return if reading.nil?
-    render status: 200, :json=>reading and return
+    render status: 200, :json=>reading.reading_hash and return
  end
 
  private
@@ -49,20 +46,14 @@ class ReadingsController < ApplicationController
 
   def get_thermostat
     @thermostat = Thermostat.where(household_token: params[:household_token]).first
-    puts @thermostat.inspect
-    puts '-=-=-=-=-=-'
     render status: 400, :json=>{:status_code => 4001, :message => I18n.t('invalid_token')} and return if !@thermostat
-    puts '-=-=-=-=-=-=-=-=-=-2'
   end
 
   def validate_params
     @reading = Reading.new(check_params)
     @reading.thermostat = @thermostat
-    puts '-=-=-=-=-=-=-=-=3'
     if !@reading.valid?
-      puts '-=-=-=-=-=-=-=-=4'
      render json: { "errors" => @reading.errors } and return
-     puts '-=-=-=-=-=-=-=-=5'
     end
   end
 

@@ -39,7 +39,8 @@ module ReadingsHelper
 	#data from DB
 	def get_thermostats_reading_aggregation
 		result = []
-		aggregation = @thermostat.readings.pluck('Avg(temperature)', 'Min(temperature)', 'Max(temperature)', 'Avg(humidity)', 'Min(humidity)', 'Max(humidity)', 'Avg(battery_charge)', 'Min(battery_charge)', 'Max(battery_charge)').first
+		readings = @thermostat.readings
+		aggregation = readings.size > 0 ? readings.pluck('Avg(temperature)', 'Min(temperature)', 'Max(temperature)', 'Avg(humidity)', 'Min(humidity)', 'Max(humidity)', 'Avg(battery_charge)', 'Min(battery_charge)', 'Max(battery_charge)').first : ""
 		unless aggregation.empty?
 		 result << {"temperature" => {"avg" => aggregation[0].round(2), "min" => aggregation[1], "max" => aggregation[2]}}
 		 result << {"humidity" => {"avg" => aggregation[3].round(2), "min" => aggregation[4], "max" => aggregation[5]}}

@@ -32,3 +32,4 @@
 en:
   invalid_token: "Invalid household token"
   no_data: "No data for given reading"
+  no_data_household: "No data available for given household token"
