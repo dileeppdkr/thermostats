@@ -39,7 +39,9 @@ Things you may want to cover:
 	cd thermostats
 	bundle install
 	rails s
+
 #API's:
+
 ##Create Thermostats (Post thermostats)
 
 	curl -X POST \
